@@ -8,6 +8,44 @@ ds4drv is a Sony DualShock 4 userspace driver for Linux.
 * GitHub: https://github.com/chrippa/ds4drv
 * PyPI: https://pypi.python.org/pypi/ds4drv
 
+Installation for Modern Linux Systems
+-------------------------------------
+
+This fork includes compatibility fixes for newer Linux systems. Follow these steps to install ds4drv with the correct Python environment and dependencies:
+
+.. code-block:: bash
+
+    # 1. Install dependencies for building Python
+    sudo apt update
+    sudo apt install -y build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+    libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev \
+    python3-openssl git
+
+    # 2. Install pyenv
+    curl https://pyenv.run | bash
+
+    # Initialize pyenv for this terminal session only
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$($PYENV_ROOT/bin/pyenv init -)"
+    eval "$($PYENV_ROOT/bin/pyenv virtualenv-init -)"
+
+    # 3. Install Python 3.10 and create virtualenv for ds4drv
+    pyenv install 3.10.12
+    pyenv virtualenv 3.10.12 ds4drv-env
+    pyenv activate ds4drv-env
+
+    # 4. Install ds4drv and compatible evdev
+    pip install --upgrade pip
+    pip install ds4drv
+    pip install evdev==1.4.0
+
+    # 5. Run ds4drv
+    ds4drv --daemon --hidraw
+
+**Note:** This installation method uses Python 3.10.12 and evdev 1.4.0 to ensure compatibility with modern Linux distributions where newer versions of these dependencies may cause issues.
+
 Features
 --------
 
